@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<h1 class="text-center text-primary">Accueil</h1>
+
+{% for type, message in app.flashes %}
+    <div class="col-6 mx-auto text-center alert alert-{{type}}">
+        {{message.0}}
+    </div>
+{% endfor %}
+{% endblock %}
