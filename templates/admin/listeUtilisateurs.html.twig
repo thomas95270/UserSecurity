@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}dmin | Liste Utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="text-center">Espace Administrateur</h1>
+    </div>
+
+    <table class="table table-hover table-striped">
+        <thead>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Roles</th>
+        </thead>
+
+        <tbody >
+        {% for user in users %}
+        <tr>
+            <td>{{user.id}}</td>
+            <td>{{user.nom}}</td>
+            <td>{{user.prenom}}</td>
+            <td>{{user.email}}</td>
+
+            <td>
+        {% for role in user.roles %}
+            {{role}}<br>
+        {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

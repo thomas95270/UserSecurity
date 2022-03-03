@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+
+<h1 class="text-center text-primary"> Espace Personnel</h1>
+
+{# la variable app est une variable systeme, elle est accessible partout  #}
+<h2 class="text-center"> Bienvenue, {{app.user.nom ~ " " ~ app.user.prenom}}</h2>
+{% for type, message in app.flashes %}
+    <div class="col-6 mx-auto text-center alert alert-{{type}}">
+        {{message.0}}
+    </div>
+{% endfor %}
+    {# {{dump(app.user) }} #}
+    {# La variable système 'app' est toujours accessible. On peut récupérer les informations de l'utilisateur à l'indice 'user' #}
+    {# <h1 class="text-center text-primary">Espace Personnel</h1>
+    <h2 class="text-center">Bienvenue, {{ app.user.prenom ~ " " ~ app.user.nom }}</h2> #}
+
+    {# Méthode en récupérant l'utilisateur depuis le controller #}
+    {# <h1 class="text-center text-primary">Espace Personnel</h1>
+    <h2 class="text-center">Bienvenue, {{ user.prenom ~ " " ~ user.nom }}</h2> #}
+
+{% endblock %}

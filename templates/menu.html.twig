@@ -6,33 +6,47 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                          {% if app.user == null %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_inscription') }}">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+
+                {% else %}
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{path('app_inscription') }}">Inscription</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Connexion</a>
+                        <a class="nav-link" href="{{path('app_login') }}">Connexion</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="">Profil</a>
+                        <a class="nav-link" href="{{path('app_profil') }}">Profil</a>
                     </li>
-
-
+                    {# On peut vérifier qu'une valeur est bien présente dans un tableau grâce au mot clé 'in'
+                        " Si 'ROLE_ADMIN' est à l'intèrieur de 'app.user.roles' ALORS on rentre dans la condition"
+                    #}
+                    {% if  "ROLE_ADMIN" in app.user.roles %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true">
                                 Admin
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{path('app_admin') }}">Accueil | Admin</a></li>
-                                <li><a class="dropdown-item" href="">Liste Utilisateurs</a></li>
+                                <li><a class="dropdown-item" href="{{path('app_listeUtilisateurs') }}">Liste Utilisateurs</a></li>
                             </ul>
                         </li>
+                    {% endif %}
 
                     <li class="nav-item">
-                        <a class="nav-link text-danger" href="">Deconnexion</a>
+                        <a class="nav-link text-danger" href="{{ path('app_logout') }}">Deconnexion</a>
                     </li>
 
-
+                {% endif %}
             </ul>
         </div>
     </div>

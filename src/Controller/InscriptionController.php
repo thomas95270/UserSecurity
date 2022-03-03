@@ -15,7 +15,14 @@ class InscriptionController extends AbstractController
 {
     #[Route('/inscription', name: 'app_inscription')]
     public function index(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
-    {
+    {   
+
+        if ($this->getUser()) {
+            $this->addFlash('warning', 'Vous avez déjà un compte');
+            return $this->redirectToRoute('app_profil');
+        }
+
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);//transmet les info de la super globale $request (method=post ($query=method get))
@@ -27,12 +34,13 @@ class InscriptionController extends AbstractController
                 -mot de passe (on peut passer par $user->getPassword() ou par le formulaire $form->getData()->getPassword())
             */
             $password = $encoder->hashPassword($user, $user->getPassword());
+            //On envoie le password hashé dans $user
             $user->setPassword($password);
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('success', 'Bravo vous etes inscrit, vous pouvez maintenant vous connecter');
 
-            return $this->redirectToRoute('app_front');
+            return $this->redirectToRoute('app_login');
         }
 
 
